@@ -1,0 +1,32 @@
+package templating
+
+import (
+	"rocket-three-starter/config"
+	"rocket-three-starter/web/resources"
+)
+
+templ Document() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+			<script type="module" src={ resources.StaticPath("datastar/datastar-pro-rocket.js") }></script>
+			<link href={ resources.StaticPath("css/index.css") } rel="stylesheet" type="text/css"/>
+			<script type="importmap">
+				{
+					"imports": {
+						"three": "https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.module.js",
+						"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.179.1/examples/jsm/"
+					}
+				}
+			</script>
+		</head>
+		<body>
+			if config.Global.Environment == config.Dev {
+				<div data-init="@get('/reload', {retryMaxCount: Infinity, retryInterval:200, retryMaxWaitMs:200})"></div>
+			}
+			{ children... }
+			@resources.StaticHTMLContent("rocket/three-component.html")
+		</body>
+	</html>
+}
