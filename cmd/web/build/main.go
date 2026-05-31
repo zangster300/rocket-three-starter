@@ -45,7 +45,7 @@ func run(ctx context.Context) error {
 	})
 
 	eg.Go(func() error {
-		return notify(egctx)
+		return notify(egctx, resources.StaticDirectoryPath+"/rocket")
 	})
 
 	return eg.Wait()
@@ -117,7 +117,7 @@ func build(ctx context.Context) error {
 	return nil
 }
 
-func notify(ctx context.Context) error {
+func notify(ctx context.Context, path string) error {
 	if !watch {
 		return nil
 	}
@@ -148,7 +148,7 @@ func notify(ctx context.Context) error {
 		}
 	}()
 
-	if err := watcher.Add(resources.StaticDirectoryPath + "/rocket"); err != nil {
+	if err := watcher.Add(path); err != nil {
 		return err
 	}
 

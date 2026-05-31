@@ -18,6 +18,7 @@
 **/*_templ.go
 
 !*.html
+!**/static/rocket/**
 !**/styles.css
 
 !*/
