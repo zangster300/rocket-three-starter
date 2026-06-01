@@ -9,8 +9,11 @@ rocket('three-component', {
         height: number.clamp(1, 100).default(0),
         width: number.clamp(1, 100).default(0),
         depth: number.clamp(1, 100).default(0),
+        x: number.clamp(-10, 10).default(0),
+        y: number.clamp(-10, 10).default(0),
+        z: number.clamp(-10, 10).default(0),
     }),
-    onFirstRender: ({ refs, cleanup, host, observeProps, props }) => {
+    onFirstRender: ({ refs, props }) => {
         console.log(props)
 
         let ro
@@ -26,7 +29,7 @@ rocket('three-component', {
             const near = 0.1;
             const far = 10;
             const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-            camera.position.z = 2;
+            camera.position.z = 6;
 
             const controls = new OrbitControls(camera, renderer.domElement);
             controls.update();
@@ -62,8 +65,8 @@ rocket('three-component', {
             }
 
             const cubes = [
-                makeInstance(geometry, 0x44aa88, 0),
                 makeInstance(geometry, 0x8844aa, -2),
+                makeInstance(geometry, 0x44aa88, 0),
                 makeInstance(geometry, 0xaa8844, 2),
             ];
 
@@ -104,7 +107,13 @@ rocket('three-component', {
                     const rot = time * speed;
                     cube.rotation.x = rot;
                     cube.rotation.y = rot;
+                    if (ndx === 1) {
+                        cube.position.y = props.y
+                    } else {
+                        cube.position.y = -props.y
+                    }
                 });
+                
 
                 renderer.render(scene, camera);
 

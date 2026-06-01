@@ -2,11 +2,12 @@ package templating
 
 templ Index() {
 	@Document() {
-		<main>
+		<main data-init="@get('/updates')" data-signals="{y: 0}">
 			<three-component
 				data-attr:width="1"
 				data-attr:height="1"
 				data-attr:depth="1"
+				data-attr:y="$y"
 			></three-component>
 		</main>
 	}
