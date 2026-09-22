@@ -1,4 +1,4 @@
-import { rocket } from 'datastar-pro';
+import { rocket } from 'datastar-rocket';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
